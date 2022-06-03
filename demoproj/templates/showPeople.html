@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <title>People</title>
+</head>
+
+<body>
+  <div class="container-fluid">
+    <h4 align="center">List of people in research RID: {{value}}</h4>
+    <table class="table table-striped table-sm align-middle text-center">
+      <tr>
+        <th>People ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Modify</th>
+        <th>Remove</th>
+      </tr>
+      {% for person in people %}
+      <tr>
+        <td>{{person.people_id}}</td>
+        <td>{{person.name}}</td>
+        <td>{{person.age}}</td>
+        <td>{{person.gender}}</td>
+        <td><a class="btn btn-primary" href="{{url_for('updatePeople',people_id=person.people_id,rid=value)}}">Update</a></td>
+        <td><a class="btn btn-danger" onclick="return confirm('Proceed to delete?');" href="{{url_for('deletePeople',people_id=person.people_id)}}">Remove</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+    <div class="row container-fluid">
+      <a class="btn btn-primary" href="{{url_for('addPeople',rid=value)}}">Add new entry</a>
+    </div>
+    <br>
+    <div class="row container-fluid">
+      <a class="btn btn-primary" href="{{url_for('showResearch',rid=value)}}" role="button">Go back</a>
+    </div>
+    <br>
+    <div class="row container-fluid">
+      <a class="btn btn-primary" href="{{url_for('home')}}" role="button">Go back to Researches Home Page</a>
+    </div>
+    {% block content %}
+  </div>
+  <div class="container">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-success fade in alert-dismissible show">
+      <span>{{ message }}</span>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">x</span>
+      </button>
+    </div>
+    {% endfor %}
+
+    {% block page_content %}{% endblock %}
+  </div>
+  {% endblock %}
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</body>
+
+</html>
